@@ -22,54 +22,61 @@ function setup(){
   playrocket.addImage(rocket)
   playrocket.scale=0.3
   stargroup=createGroup()
+  moongroup=createGroup()
   restart=createSprite(width/2,height/2,10,10)
   restart.addImage(restartima)
   restart.scale=0.1
-  if(frameCount%1000==0){
-    smoon(500)
-  }
+ 
  
 
   
  
 }
-function smoon(a){
-  console.log(frameCount,a)
-  //if (frameCount%a==0 ) {
+function smoon(){
+  console.log(frameCount)
+  if (frameCount==1000 ) {
     moon=createSprite(width,height/2,10,10)
     moon.addImage(moon1)
     moon.scale=0.3
     moon.debug=true
     moon.velocityX=-4
-     
- // }
+    moongroup.add(moon)
+   
+  }
   
 }
 function draw() {
   background("black")
+  //if(frameCount==100){
+    console.log(frameCount)
+    
+    
+ // }
   playrocket.debug=true
   image(space,0,0,width,height)
   if (gamestate=="play") {
     restart.visible=false
     playrocket.y=World.mouseY
     infinatestar() 
-
+   smoon()
+   if(playrocket.isTouching(moongroup)){
+    moon.destroy()
+    gamestate="win"
+    }
 
      
       
   if(playrocket.isTouching(stargroup)){
     gamestate="end"
     }
-    if(playrocket.isTouching(moon)){
-      moon.destroy()
-      gamestate="win"
-      }
+    
       }
   
 
  
   if (mousePressedOver(restart)) {
     gamestate="play"
+    frameCount=0
   }
 if (gamestate=="end") {
   background("red")
@@ -80,6 +87,8 @@ if (gamestate=="end") {
       playrocket.y=200
       stargroup.setVelocityXEach(0)
       stargroup.destroyEach()
+      moon.velocityX=0
+      moon.visible=false
 }
 if (gamestate=="win") {
 background("green")
