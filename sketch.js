@@ -20,46 +20,51 @@ function setup(){
  //background.addImage(space)
   playrocket=createSprite(50,200,15,15)
   playrocket.addImage(rocket)
-  playrocket.scale=0.2
+  playrocket.scale=0.3
   stargroup=createGroup()
   restart=createSprite(width/2,height/2,10,10)
   restart.addImage(restartima)
   restart.scale=0.1
+  if(frameCount%1000==0){
+    smoon(500)
+  }
+ 
+
   
  
 }
-function smoon(){
-  if (frameCount==50 ) {
+function smoon(a){
+  console.log(frameCount,a)
+  //if (frameCount%a==0 ) {
     moon=createSprite(width,height/2,10,10)
     moon.addImage(moon1)
-    moon.scale=0.15
+    moon.scale=0.3
     moon.debug=true
     moon.velocityX=-4
-    if (playrocket.isTouching(moon)) {
-      gamestate="Win" 
-      console.log("workin")
-  }   
-  }
+     
+ // }
   
 }
 function draw() {
   background("black")
   playrocket.debug=true
   image(space,0,0,width,height)
-  console.log(frameCount)
   if (gamestate=="play") {
     restart.visible=false
     playrocket.y=World.mouseY
     infinatestar() 
 
-      smoon()
 
+     
       
   if(playrocket.isTouching(stargroup)){
     gamestate="end"
     }
-    
-  }
+    if(playrocket.isTouching(moon)){
+      moon.destroy()
+      gamestate="win"
+      }
+      }
   
 
  
@@ -67,15 +72,24 @@ function draw() {
     gamestate="play"
   }
 if (gamestate=="end") {
-  fill("yellow")
-      text("GAMEOVER:(",200,200)
+  background("red")
+  fill("white")
+  textSize(40)
+      text("GAMEOVER:(",width/2-100,height/3)
       restart.visible=true
       playrocket.y=200
       stargroup.setVelocityXEach(0)
       stargroup.destroyEach()
 }
-if (gamestate=="Win") {
-  text("Well Played :)",width/2,height/2)
+if (gamestate=="win") {
+background("green")
+  fill("white")
+  textSize(40)
+      text("Smooth Landing:)",width/2-100,height/3)
+      restart.visible=true
+      playrocket.y=200
+      stargroup.setVelocityXEach(0)
+      stargroup.destroyEach()
 }
 drawSprites()
 }
@@ -86,7 +100,8 @@ if (World.frameCount%40==0)
   star=createSprite(1350,random(10,650),20,20)
   star.velocityX=-6
   star.addImage(star1)
-  star.scale=random(0.05,0.09)
+  star.scale=random(0.1,0.13
+    )
   stargroup.add(star)
 }
 
