@@ -87,8 +87,8 @@ if (gamestate=="end") {
       playrocket.y=200
       stargroup.setVelocityXEach(0)
       stargroup.destroyEach()
-      moongroup.velocityX=0
-      moon.visible=false
+      moongroup.velocityXEach=0
+      moongroup.visible=false
 }
 if (gamestate=="win") {
 background("green")
