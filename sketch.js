@@ -38,7 +38,7 @@ function smoon(){
     moon=createSprite(width,height/2,10,10)
     moon.addImage(moon1)
     moon.scale=0.3
-    moon.debug=true
+    //moon.debug=true
     moon.velocityX=-4
     moongroup.add(moon)
    
@@ -52,7 +52,7 @@ function draw() {
     
     
  // }
-  playrocket.debug=true
+  //playrocket.debug=true
   image(space,0,0,width,height)
   if (gamestate=="play") {
     restart.visible=false
